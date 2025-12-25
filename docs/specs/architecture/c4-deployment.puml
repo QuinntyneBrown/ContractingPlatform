@@ -1,0 +1,65 @@
+@startuml C4_Deployment_Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+
+title Deployment Diagram - Contractors Platform Website
+
+Deployment_Node(client, "Client Browser", "Chrome, Safari, Firefox, Edge") {
+    Container(browser, "Web Browser", "HTML/CSS/JS", "Renders the website and handles user interactions")
+}
+
+Deployment_Node(cdn_node, "CDN Edge Network", "CloudFront / Vercel Edge") {
+    Container(cdn, "CDN", "Edge Cache", "Caches and serves static assets globally")
+}
+
+Deployment_Node(cloud, "Cloud Platform", "AWS / Vercel / Azure") {
+
+    Deployment_Node(web_tier, "Web Tier", "Auto-scaling") {
+        Container(webapp, "Next.js Application", "Node.js 18+", "Server-side rendered React application")
+    }
+
+    Deployment_Node(api_tier, "API Tier", "Auto-scaling") {
+        Container(api, "API Server", "Node.js/Express", "RESTful API for form submissions and content")
+    }
+
+    Deployment_Node(data_tier, "Data Tier", "Managed Services") {
+        ContainerDb(postgres, "PostgreSQL", "RDS/Neon", "Primary database for leads, content, users")
+        ContainerDb(redis, "Redis", "ElastiCache/Upstash", "Session cache and content cache")
+    }
+
+    Deployment_Node(storage_tier, "Storage", "S3 Compatible") {
+        Container(s3, "Object Storage", "AWS S3", "Images, uploads, and static files")
+    }
+}
+
+Deployment_Node(cms_node, "CMS Platform", "Contentful / Sanity / Strapi") {
+    Container(cms, "Headless CMS", "SaaS", "Content management for projects, testimonials, services")
+}
+
+Deployment_Node(external, "External Services", "Third-party APIs") {
+    Container(sendgrid, "SendGrid", "Email API", "Transactional emails")
+    Container(gmaps, "Google Maps", "Maps API", "Location maps")
+    Container(recaptcha, "reCAPTCHA", "Security API", "Bot protection")
+    Container(ga, "Google Analytics", "Analytics", "Traffic tracking")
+}
+
+' Relationships
+Rel(browser, cdn, "Requests", "HTTPS")
+Rel(cdn, webapp, "Origin fetch", "HTTPS")
+Rel(cdn, s3, "Static assets", "HTTPS")
+
+Rel(browser, api, "API calls", "HTTPS/JSON")
+Rel(webapp, api, "Server calls", "HTTPS")
+Rel(webapp, cms, "Content fetch", "GraphQL/REST")
+
+Rel(api, postgres, "Queries", "PostgreSQL")
+Rel(api, redis, "Cache ops", "Redis")
+Rel(api, s3, "File ops", "S3 API")
+Rel(api, sendgrid, "Send email", "HTTPS")
+Rel(api, recaptcha, "Validate", "HTTPS")
+
+Rel(browser, gmaps, "Load maps", "HTTPS")
+Rel(browser, ga, "Track events", "HTTPS")
+Rel(cms, postgres, "Webhook sync", "HTTPS")
+
+SHOW_LEGEND()
+@enduml

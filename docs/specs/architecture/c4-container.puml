@@ -1,0 +1,43 @@
+@startuml C4_Container_Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Container Diagram - Contractors Platform Website
+
+Person(visitor, "Website Visitor", "Potential customer looking for contracting services")
+Person(admin, "Admin User", "Company staff managing content and leads")
+
+System_Boundary(website, "Contractors Platform") {
+    Container(spa, "Web Application", "React/Next.js", "Server-side rendered marketing website with dynamic content")
+    Container(api, "API Server", "Node.js/Express", "Handles form submissions, file uploads, and admin operations")
+    Container(cms, "Content Management", "Headless CMS", "Manages dynamic content: projects, testimonials, services")
+    Container(db, "Database", "PostgreSQL", "Stores leads, content, and application data")
+    Container(cache, "Cache Layer", "Redis", "Caches frequently accessed content and sessions")
+    Container(cdn, "CDN", "CloudFront/Vercel", "Serves static assets and cached pages")
+}
+
+System_Ext(email, "Email Service", "SendGrid")
+System_Ext(storage, "Cloud Storage", "AWS S3")
+System_Ext(maps, "Google Maps API", "Maps")
+System_Ext(recaptcha, "Google reCAPTCHA", "Spam Protection")
+System_Ext(analytics, "Google Analytics", "Analytics")
+
+Rel(visitor, cdn, "Views website", "HTTPS")
+Rel(cdn, spa, "Requests pages", "HTTPS")
+Rel(visitor, api, "Submits forms", "HTTPS/JSON")
+Rel(admin, spa, "Manages content", "HTTPS")
+Rel(admin, cms, "Updates content", "HTTPS")
+
+Rel(spa, api, "API calls", "HTTPS/JSON")
+Rel(spa, cms, "Fetches content", "GraphQL/REST")
+Rel(api, db, "Reads/writes data", "SQL")
+Rel(api, cache, "Caches data", "Redis Protocol")
+Rel(api, storage, "Uploads files", "S3 API")
+Rel(api, email, "Sends emails", "API")
+Rel(api, recaptcha, "Validates", "API")
+
+Rel(spa, maps, "Loads maps", "JS API")
+Rel(spa, analytics, "Tracks events", "JS")
+Rel(cms, db, "Stores content", "SQL")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,31 @@
+@startuml C4_Context_Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title System Context Diagram - Contractors Platform Website
+
+Person(visitor, "Website Visitor", "Potential customer looking for contracting services in NYC")
+Person(admin, "Admin User", "Company staff managing leads and content")
+
+System(website, "Contractors Platform", "Marketing website for general contracting company. Showcases services, projects, and generates leads.")
+
+System_Ext(email, "Email Service", "SendGrid/Mailgun - Sends notification and confirmation emails")
+System_Ext(maps, "Google Maps", "Displays office location and service areas")
+System_Ext(analytics, "Google Analytics", "Tracks website traffic and user behavior")
+System_Ext(recaptcha, "Google reCAPTCHA", "Protects forms from spam and bots")
+System_Ext(storage, "Cloud Storage", "AWS S3/Azure Blob - Stores uploaded images and files")
+System_Ext(crm, "CRM System", "Manages leads and customer relationships")
+
+Rel(visitor, website, "Views services, projects, submits inquiries", "HTTPS")
+Rel(admin, website, "Manages content, views leads", "HTTPS")
+
+Rel(website, email, "Sends emails", "SMTP/API")
+Rel(website, maps, "Embeds maps", "JavaScript API")
+Rel(website, analytics, "Sends events", "JavaScript")
+Rel(website, recaptcha, "Validates forms", "API")
+Rel(website, storage, "Stores/retrieves files", "API")
+Rel(website, crm, "Syncs leads", "API")
+
+Rel(email, visitor, "Delivers confirmation emails", "SMTP")
+
+SHOW_LEGEND()
+@enduml

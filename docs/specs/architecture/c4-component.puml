@@ -1,0 +1,78 @@
+@startuml C4_Component_Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component Diagram - Contractors Platform Web Application
+
+Container_Boundary(spa, "Web Application (Next.js)") {
+
+    Component(layout, "Layout Components", "React", "Header, Footer, Navigation - shared across all pages")
+    Component(home, "Homepage", "React Page", "Hero, stats, services grid, testimonials, CTAs")
+    Component(services, "Services Pages", "React Pages", "Service overview and detail pages")
+    Component(projects, "Projects Gallery", "React Page", "Filterable project portfolio with lightbox")
+    Component(about, "About Page", "React Page", "Company story, team, credentials")
+    Component(contact, "Contact Page", "React Page", "Lead capture form, contact info, map")
+
+    Component(nav, "Navigation Component", "React", "Responsive header with dropdown menus")
+    Component(footer, "Footer Component", "React", "Site footer with links and contact info")
+    Component(hero, "Hero Component", "React", "Reusable hero sections with CTA")
+    Component(gallery, "Gallery Component", "React", "Image grid with lightbox functionality")
+    Component(carousel, "Carousel Component", "React", "Testimonials and project carousels")
+    Component(form, "Form Components", "React", "Contact form with validation")
+    Component(beforeAfter, "Before/After Slider", "React", "Image comparison component")
+    Component(stats, "Statistics Counter", "React", "Animated number counters")
+    Component(cards, "Card Components", "React", "Service cards, project cards, testimonial cards")
+    Component(map, "Map Component", "React", "Google Maps integration")
+}
+
+Container_Boundary(api, "API Server (Node.js)") {
+
+    Component(leadController, "Lead Controller", "Express", "Handles contact form submissions")
+    Component(uploadController, "Upload Controller", "Express", "Manages file uploads")
+    Component(contentController, "Content Controller", "Express", "Serves dynamic content")
+
+    Component(leadService, "Lead Service", "Service", "Lead processing and validation")
+    Component(emailService, "Email Service", "Service", "Email composition and sending")
+    Component(uploadService, "Upload Service", "Service", "File validation and storage")
+    Component(cacheService, "Cache Service", "Service", "Content caching logic")
+
+    Component(validation, "Validation Middleware", "Middleware", "Input validation and sanitization")
+    Component(rateLimit, "Rate Limiter", "Middleware", "Prevents abuse")
+    Component(recaptchaMiddleware, "reCAPTCHA Middleware", "Middleware", "Bot protection")
+}
+
+' Web App Relationships
+Rel(layout, nav, "Contains")
+Rel(layout, footer, "Contains")
+
+Rel(home, hero, "Uses")
+Rel(home, stats, "Uses")
+Rel(home, cards, "Uses")
+Rel(home, carousel, "Uses")
+
+Rel(services, hero, "Uses")
+Rel(services, cards, "Uses")
+Rel(services, gallery, "Uses")
+Rel(services, beforeAfter, "Uses")
+
+Rel(projects, gallery, "Uses")
+Rel(projects, beforeAfter, "Uses")
+
+Rel(contact, form, "Uses")
+Rel(contact, map, "Uses")
+
+' API Relationships
+Rel(leadController, validation, "Uses")
+Rel(leadController, recaptchaMiddleware, "Uses")
+Rel(leadController, rateLimit, "Uses")
+Rel(leadController, leadService, "Uses")
+
+Rel(uploadController, validation, "Uses")
+Rel(uploadController, uploadService, "Uses")
+
+Rel(leadService, emailService, "Uses")
+
+Rel(form, leadController, "Submits to", "HTTPS")
+Rel(form, uploadController, "Uploads to", "HTTPS")
+
+SHOW_LEGEND()
+@enduml

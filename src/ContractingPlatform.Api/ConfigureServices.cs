@@ -4,12 +4,13 @@
 using ContractingPlatform.Core;
 using ContractingPlatform.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
 {
-    public static void AddApiServices(this IServiceCollection services)
+    public static void AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder
@@ -23,7 +24,7 @@ public static class ConfigureServices
         services.AddSwaggerGen();
 
         services.AddDbContext<ContractingPlatformContext>(options =>
-            options.UseInMemoryDatabase("ContractingPlatformDb"));
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IContractingPlatformContext>(provider =>
             provider.GetRequiredService<ContractingPlatformContext>());

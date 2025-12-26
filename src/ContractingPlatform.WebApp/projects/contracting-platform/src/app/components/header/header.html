@@ -1,0 +1,74 @@
+<header class="header">
+  <mat-toolbar color="primary" class="header__toolbar">
+    <div class="header__container">
+      <a routerLink="/" class="header__logo">
+        <span class="header__logo-text">ContractingPlatform</span>
+      </a>
+
+      <ng-container *ngIf="isMobile$ | async; else desktopNav">
+        <div class="header__mobile-actions">
+          <a href="tel:7185502779" class="header__phone-mobile" aria-label="Call us">
+            <mat-icon>phone</mat-icon>
+          </a>
+          <button mat-icon-button (click)="toggleMobileMenu()" aria-label="Toggle menu">
+            <mat-icon>{{ mobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #desktopNav>
+        <nav class="header__nav" aria-label="Main navigation">
+          @for (link of navLinks; track link.path) {
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="header__nav-link--active"
+              [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              class="header__nav-link"
+            >
+              {{ link.label }}
+            </a>
+          }
+        </nav>
+
+        <div class="header__actions">
+          <a href="tel:7185502779" class="header__phone">
+            <mat-icon>phone</mat-icon>
+            <span>(718) 550-2779</span>
+          </a>
+          <a mat-raised-button color="accent" routerLink="/contact" class="header__cta">
+            Get a Quote
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </mat-toolbar>
+
+  <div
+    class="header__mobile-menu"
+    [class.header__mobile-menu--open]="mobileMenuOpen"
+    *ngIf="isMobile$ | async"
+  >
+    <nav class="header__mobile-nav" aria-label="Mobile navigation">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="header__mobile-nav-link--active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          class="header__mobile-nav-link"
+          (click)="closeMobileMenu()"
+        >
+          {{ link.label }}
+        </a>
+      }
+      <a
+        mat-raised-button
+        color="accent"
+        routerLink="/contact"
+        class="header__mobile-cta"
+        (click)="closeMobileMenu()"
+      >
+        Get a Quote
+      </a>
+    </nav>
+  </div>
+</header>

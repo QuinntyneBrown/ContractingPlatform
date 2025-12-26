@@ -1,6 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using ContractingPlatform.Core;
+using ContractingPlatform.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
@@ -17,5 +21,13 @@ public static class ConfigureServices
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        services.AddDbContext<ContractingPlatformContext>(options =>
+            options.UseInMemoryDatabase("ContractingPlatformDb"));
+
+        services.AddScoped<IContractingPlatformContext>(provider =>
+            provider.GetRequiredService<ContractingPlatformContext>());
+
+        services.AddScoped<SeedingService>();
     }
 }

@@ -1,0 +1,108 @@
+<div class="home" *ngIf="viewModel$ | async as vm">
+  <!-- Hero Section -->
+  <cp-hero-section
+    title="NYC's Trusted General Contractor Since 1987"
+    subtitle="Quality Renovations & Restoration Services for Residential and Commercial Properties"
+    backgroundImage="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=80"
+    primaryButtonText="Get Free Estimate"
+    secondaryButtonText="Call (718) 550-2779"
+    [overlayOpacity]="0.6"
+    variant="full"
+    (primaryClick)="onGetEstimate()"
+    (secondaryClick)="onCallNow()"
+  ></cp-hero-section>
+
+  <!-- Emergency Banner -->
+  <section class="home__emergency">
+    <div class="home__container">
+      <div class="home__emergency-content">
+        <span class="home__emergency-icon">&#9888;</span>
+        <div class="home__emergency-text">
+          <strong>24/7 Emergency Services Available</strong>
+          <span>Water damage? Fire? Call us anytime.</span>
+        </div>
+        <a href="tel:7185502779" class="home__emergency-phone">(718) 550-2779</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="home__stats">
+    <div class="home__container">
+      <div class="home__stats-grid">
+        @for (stat of vm.statistics; track stat.statisticId) {
+          <cp-statistic
+            [value]="stat.value"
+            [label]="stat.label"
+            [suffix]="stat.suffix || ''"
+            variant="inverted"
+          ></cp-statistic>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="home__services">
+    <div class="home__container">
+      <cp-section-header
+        title="Our Services"
+        subtitle="We offer a comprehensive range of contracting services to meet all your residential and commercial needs"
+        alignment="center"
+      ></cp-section-header>
+
+      <div class="home__services-grid">
+        @for (service of vm.services; track service.serviceId) {
+          <cp-service-card
+            [icon]="service.icon"
+            [title]="service.name"
+            [description]="service.description"
+            linkText="Learn More"
+            (linkClick)="onGetEstimate()"
+          ></cp-service-card>
+        }
+      </div>
+
+      <div class="home__services-cta">
+        <a routerLink="/services" class="home__view-all">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges Section -->
+  <section class="home__trust">
+    <div class="home__container">
+      <cp-section-header
+        title="Why Choose Us"
+        subtitle="Your trusted partner for quality construction and renovation services"
+        alignment="center"
+      ></cp-section-header>
+
+      <div class="home__trust-grid">
+        @for (badge of vm.trustBadges; track badge.trustBadgeId) {
+          <cp-trust-badge
+            [icon]="badge.icon"
+            [title]="badge.title"
+            [subtitle]="badge.subtitle || ''"
+          ></cp-trust-badge>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="home__cta">
+    <div class="home__container">
+      <div class="home__cta-content">
+        <h2 class="home__cta-title">Ready to Start Your Project?</h2>
+        <p class="home__cta-text">Get a free estimate today. Our expert team is ready to help transform your space.</p>
+        <div class="home__cta-actions">
+          <a routerLink="/contact" class="home__cta-button home__cta-button--primary">Get Free Estimate</a>
+          <a href="tel:7185502779" class="home__cta-button home__cta-button--secondary">
+            Call (718) 550-2779
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,195 @@
+<div class="contact">
+  <!-- Hero Section -->
+  <cp-hero-section
+    title="Contact Us"
+    subtitle="Get Your Free Estimate Today"
+    backgroundImage="https://images.unsplash.com/photo-1581094794329-c8112d89af12?auto=format&fit=crop&w=1920&q=80"
+    [overlayOpacity]="0.7"
+    variant="compact"
+  ></cp-hero-section>
+
+  <!-- Emergency Banner -->
+  <section class="contact__emergency">
+    <div class="contact__container">
+      <div class="contact__emergency-content">
+        <mat-icon>warning</mat-icon>
+        <div class="contact__emergency-text">
+          <strong>24/7 Emergency Services</strong>
+          <span>Water damage? Fire? Call us anytime.</span>
+        </div>
+        <a href="tel:7185502779" class="contact__emergency-phone">(718) 550-2779</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="contact__main">
+    <div class="contact__container">
+      <div class="contact__grid">
+        <!-- Contact Form -->
+        <div class="contact__form-container">
+          <h2 class="contact__form-title">Send Us a Message</h2>
+
+          <ng-container *ngIf="submitted$ | async; else formTemplate">
+            <div class="contact__success">
+              <mat-icon>check_circle</mat-icon>
+              <h3>Thank You!</h3>
+              <p>We've received your message and will respond within 24 hours.</p>
+              <button mat-raised-button color="primary" (click)="resetForm()">
+                Send Another Message
+              </button>
+            </div>
+          </ng-container>
+
+          <ng-template #formTemplate>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact__form">
+              <mat-form-field appearance="outline" class="contact__field">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="fullName" placeholder="John Smith">
+                @if (contactForm.get('fullName')?.hasError('required') && contactForm.get('fullName')?.touched) {
+                  <mat-error>Full name is required</mat-error>
+                }
+                @if (contactForm.get('fullName')?.hasError('minlength')) {
+                  <mat-error>Name must be at least 2 characters</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="contact__field">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="john@example.com">
+                @if (contactForm.get('email')?.hasError('required') && contactForm.get('email')?.touched) {
+                  <mat-error>Email is required</mat-error>
+                }
+                @if (contactForm.get('email')?.hasError('email')) {
+                  <mat-error>Please enter a valid email</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="contact__field">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phone" type="tel" placeholder="(718) 555-1234">
+                @if (contactForm.get('phone')?.hasError('required') && contactForm.get('phone')?.touched) {
+                  <mat-error>Phone number is required</mat-error>
+                }
+                @if (contactForm.get('phone')?.hasError('pattern')) {
+                  <mat-error>Please enter a valid phone number</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="contact__field">
+                <mat-label>Service Type</mat-label>
+                <mat-select formControlName="serviceType">
+                  @for (type of serviceTypes; track type.value) {
+                    <mat-option [value]="type.value">{{ type.label }}</mat-option>
+                  }
+                </mat-select>
+                @if (contactForm.get('serviceType')?.hasError('required') && contactForm.get('serviceType')?.touched) {
+                  <mat-error>Please select a service type</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="contact__field">
+                <mat-label>Project Address (Optional)</mat-label>
+                <input matInput formControlName="projectAddress" placeholder="123 Main St, Brooklyn, NY">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="contact__field contact__field--full">
+                <mat-label>Message (Optional)</mat-label>
+                <textarea
+                  matInput
+                  formControlName="message"
+                  rows="4"
+                  placeholder="Tell us about your project..."
+                ></textarea>
+              </mat-form-field>
+
+              <div class="contact__radio-group">
+                <label class="contact__radio-label">Preferred Contact Method</label>
+                <mat-radio-group formControlName="preferredContactMethod">
+                  @for (method of contactMethods; track method.value) {
+                    <mat-radio-button [value]="method.value">{{ method.label }}</mat-radio-button>
+                  }
+                </mat-radio-group>
+              </div>
+
+              <div class="contact__error" *ngIf="error$ | async as error">
+                <mat-icon>error</mat-icon>
+                <span>{{ error }}</span>
+              </div>
+
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="contact__submit"
+                [disabled]="submitting$ | async"
+              >
+                @if (submitting$ | async) {
+                  <mat-spinner diameter="20"></mat-spinner>
+                  <span>Sending...</span>
+                } @else {
+                  <span>Send Message</span>
+                }
+              </button>
+            </form>
+          </ng-template>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact__info">
+          <h2 class="contact__info-title">Get in Touch</h2>
+
+          <div class="contact__info-items">
+            <a href="tel:7185502779" class="contact__info-item">
+              <div class="contact__info-icon">
+                <mat-icon>phone</mat-icon>
+              </div>
+              <div class="contact__info-content">
+                <strong>Phone</strong>
+                <span>(718) 550-2779</span>
+              </div>
+            </a>
+
+            <a href="mailto:info@contractingplatform.com" class="contact__info-item">
+              <div class="contact__info-icon">
+                <mat-icon>email</mat-icon>
+              </div>
+              <div class="contact__info-content">
+                <strong>Email</strong>
+                <span>info&#64;contractingplatform.com</span>
+              </div>
+            </a>
+
+            <div class="contact__info-item">
+              <div class="contact__info-icon">
+                <mat-icon>location_on</mat-icon>
+              </div>
+              <div class="contact__info-content">
+                <strong>Address</strong>
+                <span>99 Wall St, Suite 172<br>New York, NY 10005</span>
+              </div>
+            </div>
+
+            <div class="contact__info-item">
+              <div class="contact__info-icon">
+                <mat-icon>schedule</mat-icon>
+              </div>
+              <div class="contact__info-content">
+                <strong>Business Hours</strong>
+                <span>Mon-Fri: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 2:00 PM<br>Sunday: Closed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__emergency-box">
+            <mat-icon>warning</mat-icon>
+            <div>
+              <strong>Emergency Service</strong>
+              <span>24/7 Available for Water & Fire Damage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

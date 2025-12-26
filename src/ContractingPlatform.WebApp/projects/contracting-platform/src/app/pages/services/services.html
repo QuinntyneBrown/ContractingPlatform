@@ -1,0 +1,56 @@
+<div class="services" *ngIf="viewModel$ | async as vm">
+  <!-- Hero Section -->
+  <cp-hero-section
+    title="Our Services"
+    subtitle="Comprehensive contracting services for residential and commercial properties across NYC"
+    backgroundImage="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80"
+    primaryButtonText="Get Free Quote"
+    [overlayOpacity]="0.7"
+    variant="compact"
+    (primaryClick)="onServiceClick()"
+  ></cp-hero-section>
+
+  <!-- Services Grid -->
+  <section class="services__main">
+    <div class="services__container">
+      <cp-section-header
+        title="What We Offer"
+        subtitle="From kitchen renovations to emergency restorations, we provide complete contracting solutions"
+        alignment="center"
+      ></cp-section-header>
+
+      <div class="services__grid">
+        @for (service of vm.services; track service.serviceId) {
+          <cp-service-card
+            [icon]="service.icon"
+            [title]="service.name"
+            [description]="service.description"
+            linkText="Get Quote"
+            (linkClick)="onServiceClick()"
+          ></cp-service-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="services__cta">
+    <div class="services__container">
+      <div class="services__cta-content">
+        <h2 class="services__cta-title">Need a Custom Solution?</h2>
+        <p class="services__cta-text">
+          Don't see exactly what you're looking for? We offer customized contracting services
+          to meet your specific needs. Contact us for a free consultation.
+        </p>
+        <div class="services__cta-actions">
+          <a routerLink="/contact" class="services__cta-button services__cta-button--primary">
+            Contact Us
+          </a>
+          <a href="tel:7185502779" class="services__cta-button services__cta-button--secondary">
+            Call (718) 550-2779
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

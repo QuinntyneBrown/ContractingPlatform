@@ -11,4 +11,7 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContractingPlatform.Infrastructure\ContractingPlatform.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

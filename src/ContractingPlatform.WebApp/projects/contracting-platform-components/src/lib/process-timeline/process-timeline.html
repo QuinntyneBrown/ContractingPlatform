@@ -1,0 +1,16 @@
+<div
+  class="process-timeline"
+  [class.process-timeline--horizontal]="variant === 'horizontal'"
+  [class.process-timeline--vertical]="variant === 'vertical'"
+>
+  <div class="process-timeline__step" *ngFor="let step of steps; let last = last">
+    <div class="process-timeline__step-content">
+      <div class="process-timeline__number">{{ step.number }}</div>
+      <div class="process-timeline__text">
+        <h4 class="process-timeline__title">{{ step.title }}</h4>
+        <p class="process-timeline__description">{{ step.description }}</p>
+      </div>
+    </div>
+    <div class="process-timeline__connector" *ngIf="!last"></div>
+  </div>
+</div>

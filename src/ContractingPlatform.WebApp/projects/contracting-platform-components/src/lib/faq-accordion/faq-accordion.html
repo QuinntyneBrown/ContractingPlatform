@@ -1,0 +1,12 @@
+<mat-accordion class="faq-accordion" [multi]="multi">
+  <mat-expansion-panel *ngFor="let item of items" class="faq-accordion__panel">
+    <mat-expansion-panel-header class="faq-accordion__header">
+      <mat-panel-title class="faq-accordion__question">
+        {{ item.question }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="faq-accordion__answer">
+      {{ item.answer }}
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

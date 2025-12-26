@@ -1,0 +1,28 @@
+// Angular Material Theme
+@use '@angular/material' as mat;
+
+// Include the core styles for Material
+@include mat.core();
+
+// Define the Material 3 theme
+$contracting-platform-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+    ),
+  )
+);
+
+// Apply the theme
+:root {
+  @include mat.all-component-themes($contracting-platform-theme);
+}
+
+// Base styles
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

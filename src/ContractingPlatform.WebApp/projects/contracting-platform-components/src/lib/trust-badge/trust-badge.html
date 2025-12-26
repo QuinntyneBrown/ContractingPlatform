@@ -1,0 +1,9 @@
+<div class="trust-badge" [class.trust-badge--compact]="variant === 'compact'">
+  <div class="trust-badge__icon-wrapper">
+    <mat-icon class="trust-badge__icon">{{ icon }}</mat-icon>
+  </div>
+  <div class="trust-badge__text">
+    <span class="trust-badge__title">{{ title }}</span>
+    <span class="trust-badge__subtitle" *ngIf="subtitle">{{ subtitle }}</span>
+  </div>
+</div>

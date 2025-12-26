@@ -1,0 +1,45 @@
+@use '../styles/tokens' as *;
+
+.filter-pills {
+  width: 100%;
+  overflow-x: auto;
+  padding: $spacing-2 0;
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+
+    @media (max-width: $breakpoint-md) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__chip {
+    cursor: pointer;
+    transition: all $transition-fast;
+    border-radius: $radius-full;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &--selected {
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+// Hide scrollbar but keep functionality
+.filter-pills::-webkit-scrollbar {
+  height: 4px;
+}
+
+.filter-pills::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filter-pills::-webkit-scrollbar-thumb {
+  background: var(--mat-sys-outline-variant, #cac4d0);
+  border-radius: $radius-full;
+}

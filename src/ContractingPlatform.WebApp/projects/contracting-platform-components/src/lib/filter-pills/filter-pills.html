@@ -1,0 +1,13 @@
+<div class="filter-pills">
+  <mat-chip-set class="filter-pills__container" aria-label="Filter options">
+    <mat-chip
+      *ngFor="let option of options"
+      class="filter-pills__chip"
+      [class.filter-pills__chip--selected]="isSelected(option)"
+      [highlighted]="isSelected(option)"
+      (click)="onSelect(option)"
+    >
+      {{ option.label }}
+    </mat-chip>
+  </mat-chip-set>
+</div>

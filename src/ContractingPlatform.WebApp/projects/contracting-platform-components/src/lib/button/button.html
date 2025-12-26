@@ -1,0 +1,67 @@
+<button
+  [ngClass]="buttonClass"
+  [class.button--full-width]="fullWidth"
+  [disabled]="disabled"
+  mat-flat-button
+  *ngIf="variant === 'primary'"
+  color="primary"
+>
+  <mat-icon *ngIf="icon && iconPosition === 'left'" class="button__icon button__icon--left">{{
+    icon
+  }}</mat-icon>
+  <ng-content></ng-content>
+  <mat-icon *ngIf="icon && iconPosition === 'right'" class="button__icon button__icon--right">{{
+    icon
+  }}</mat-icon>
+</button>
+
+<button
+  [ngClass]="buttonClass"
+  [class.button--full-width]="fullWidth"
+  [disabled]="disabled"
+  mat-flat-button
+  *ngIf="variant === 'secondary'"
+  color="accent"
+>
+  <mat-icon *ngIf="icon && iconPosition === 'left'" class="button__icon button__icon--left">{{
+    icon
+  }}</mat-icon>
+  <ng-content></ng-content>
+  <mat-icon *ngIf="icon && iconPosition === 'right'" class="button__icon button__icon--right">{{
+    icon
+  }}</mat-icon>
+</button>
+
+<button
+  [ngClass]="buttonClass"
+  [class.button--full-width]="fullWidth"
+  [disabled]="disabled"
+  mat-stroked-button
+  *ngIf="variant === 'outlined'"
+  color="primary"
+>
+  <mat-icon *ngIf="icon && iconPosition === 'left'" class="button__icon button__icon--left">{{
+    icon
+  }}</mat-icon>
+  <ng-content></ng-content>
+  <mat-icon *ngIf="icon && iconPosition === 'right'" class="button__icon button__icon--right">{{
+    icon
+  }}</mat-icon>
+</button>
+
+<button
+  [ngClass]="buttonClass"
+  [class.button--full-width]="fullWidth"
+  [disabled]="disabled"
+  mat-button
+  *ngIf="variant === 'text'"
+  color="primary"
+>
+  <mat-icon *ngIf="icon && iconPosition === 'left'" class="button__icon button__icon--left">{{
+    icon
+  }}</mat-icon>
+  <ng-content></ng-content>
+  <mat-icon *ngIf="icon && iconPosition === 'right'" class="button__icon button__icon--right">{{
+    icon
+  }}</mat-icon>
+</button>

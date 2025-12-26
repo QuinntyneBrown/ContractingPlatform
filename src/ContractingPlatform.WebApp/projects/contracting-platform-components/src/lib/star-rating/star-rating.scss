@@ -1,0 +1,59 @@
+@use '../styles/tokens' as *;
+
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  &__stars {
+    display: flex;
+    gap: $spacing-1;
+  }
+
+  &__star {
+    color: var(--mat-sys-outline, #79747e);
+
+    &--filled {
+      color: #f59e0b;
+    }
+  }
+
+  &__value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: var(--mat-sys-on-surface-variant, #49454f);
+  }
+
+  // Size variants
+  &--small {
+    .star-rating__star {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .star-rating__value {
+      font-size: $font-size-xs;
+    }
+  }
+
+  &--medium {
+    .star-rating__star {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &--large {
+    .star-rating__star {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .star-rating__value {
+      font-size: $font-size-base;
+    }
+  }
+}

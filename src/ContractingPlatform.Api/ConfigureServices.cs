@@ -29,5 +29,7 @@ public static class ConfigureServices
             provider.GetRequiredService<ContractingPlatformContext>());
 
         services.AddScoped<SeedingService>();
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
     }
 }

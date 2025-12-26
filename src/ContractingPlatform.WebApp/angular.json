@@ -78,7 +78,7 @@
       "projectType": "library",
       "root": "projects/contracting-platform-components",
       "sourceRoot": "projects/contracting-platform-components/src",
-      "prefix": "lib",
+      "prefix": "cp",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -105,7 +105,10 @@
             "browserTarget": "contracting-platform:build",
             "compodoc": false,
             "port": 6006,
-            "open": false
+            "open": false,
+            "styles": [
+              ".storybook/styles.scss"
+            ]
           }
         },
         "build-storybook": {
@@ -114,7 +117,10 @@
             "configDir": ".storybook",
             "browserTarget": "contracting-platform:build",
             "compodoc": false,
-            "outputDir": "storybook-static"
+            "outputDir": "storybook-static",
+            "styles": [
+              ".storybook/styles.scss"
+            ]
           }
         }
       }

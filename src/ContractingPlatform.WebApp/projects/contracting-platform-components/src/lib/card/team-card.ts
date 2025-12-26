@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'lib-team-card',
+  selector: 'cp-team-card',
   standalone: true,
   imports: [CommonModule, MatCardModule],
   templateUrl: './team-card.html',

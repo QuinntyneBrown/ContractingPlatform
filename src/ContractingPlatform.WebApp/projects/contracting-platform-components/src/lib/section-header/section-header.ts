@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'lib-section-header',
+  selector: 'cp-section-header',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './section-header.html',

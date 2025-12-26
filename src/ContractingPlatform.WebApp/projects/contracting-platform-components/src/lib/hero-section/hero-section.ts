@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'lib-hero-section',
+  selector: 'cp-hero-section',
   standalone: true,
   imports: [CommonModule, MatButtonModule],
   templateUrl: './hero-section.html',

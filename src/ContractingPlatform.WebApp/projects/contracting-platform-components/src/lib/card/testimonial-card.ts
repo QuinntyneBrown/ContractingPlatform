@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'lib-testimonial-card',
+  selector: 'cp-testimonial-card',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule],
   templateUrl: './testimonial-card.html',

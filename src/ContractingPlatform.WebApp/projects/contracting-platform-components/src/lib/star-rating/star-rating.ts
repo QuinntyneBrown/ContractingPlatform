@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'lib-star-rating',
+  selector: 'cp-star-rating',
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './star-rating.html',

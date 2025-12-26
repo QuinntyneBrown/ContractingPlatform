@@ -13,6 +13,15 @@ const config: StorybookConfig = {
   },
   docs: {},
   staticDirs: [],
+  previewHead: (head) => `
+    ${head}
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  `,
 };
 
 export default config;

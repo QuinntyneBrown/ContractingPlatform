@@ -8,7 +8,7 @@ export interface FilterOption {
 }
 
 @Component({
-  selector: 'lib-filter-pills',
+  selector: 'cp-filter-pills',
   standalone: true,
   imports: [CommonModule, MatChipsModule],
   templateUrl: './filter-pills.html',

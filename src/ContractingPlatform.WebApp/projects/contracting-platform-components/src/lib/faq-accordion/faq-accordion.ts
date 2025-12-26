@@ -8,7 +8,7 @@ export interface FaqItem {
 }
 
 @Component({
-  selector: 'lib-faq-accordion',
+  selector: 'cp-faq-accordion',
   standalone: true,
   imports: [CommonModule, MatExpansionModule],
   templateUrl: './faq-accordion.html',

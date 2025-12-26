@@ -72,7 +72,7 @@ export const ProjectCardMeta: Meta<ProjectCard> = {
 export const ProjectCardDefault: StoryObj<ProjectCard> = {
   render: (args) => ({
     props: args,
-    template: `<lib-project-card [imageUrl]="imageUrl" [title]="title" [category]="category" [location]="location"></lib-project-card>`,
+    template: `<cp-project-card [imageUrl]="imageUrl" [title]="title" [category]="category" [location]="location"></cp-project-card>`,
   }),
   args: {
     imageUrl: 'https://placehold.co/400x300/e7e0ec/49454f?text=Kitchen',
@@ -92,7 +92,7 @@ export const TestimonialCardMeta: Meta<TestimonialCard> = {
 export const TestimonialCardDefault: StoryObj<TestimonialCard> = {
   render: (args) => ({
     props: args,
-    template: `<lib-testimonial-card [quote]="quote" [authorName]="authorName" [authorLocation]="authorLocation" [serviceType]="serviceType" [rating]="rating"></lib-testimonial-card>`,
+    template: `<cp-testimonial-card [quote]="quote" [authorName]="authorName" [authorLocation]="authorLocation" [serviceType]="serviceType" [rating]="rating"></cp-testimonial-card>`,
   }),
   args: {
     quote:
@@ -114,7 +114,7 @@ export const TeamCardMeta: Meta<TeamCard> = {
 export const TeamCardDefault: StoryObj<TeamCard> = {
   render: (args) => ({
     props: args,
-    template: `<lib-team-card [imageUrl]="imageUrl" [name]="name" [role]="role" [description]="description"></lib-team-card>`,
+    template: `<cp-team-card [imageUrl]="imageUrl" [name]="name" [role]="role" [description]="description"></cp-team-card>`,
   }),
   args: {
     imageUrl: 'https://placehold.co/150x150/6750a4/ffffff?text=RR',

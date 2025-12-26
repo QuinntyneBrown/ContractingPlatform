@@ -7,7 +7,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text';
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 @Component({
-  selector: 'lib-button',
+  selector: 'cp-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './button.html',

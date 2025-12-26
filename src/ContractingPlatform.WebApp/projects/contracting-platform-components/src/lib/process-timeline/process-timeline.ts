@@ -8,7 +8,7 @@ export interface ProcessStep {
 }
 
 @Component({
-  selector: 'lib-process-timeline',
+  selector: 'cp-process-timeline',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './process-timeline.html',

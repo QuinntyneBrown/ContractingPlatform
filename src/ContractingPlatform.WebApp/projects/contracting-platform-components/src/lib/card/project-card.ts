@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
-  selector: 'lib-project-card',
+  selector: 'cp-project-card',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatChipsModule],
   templateUrl: './project-card.html',

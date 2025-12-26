@@ -36,7 +36,7 @@ const meta: Meta<Button> = {
   },
   render: (args) => ({
     props: args,
-    template: `<lib-button [variant]="variant" [size]="size" [disabled]="disabled" [fullWidth]="fullWidth" [icon]="icon" [iconPosition]="iconPosition">Button</lib-button>`,
+    template: `<cp-button [variant]="variant" [size]="size" [disabled]="disabled" [fullWidth]="fullWidth" [icon]="icon" [iconPosition]="iconPosition">Button</cp-button>`,
   }),
 };
 

@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'lib-service-card',
+  selector: 'cp-service-card',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './service-card.html',

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'lib-trust-badge',
+  selector: 'cp-trust-badge',
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './trust-badge.html',

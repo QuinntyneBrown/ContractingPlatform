@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Api.Core;
 using ContractingPlatform.Api.Features.Leads;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContractingPlatform.Api;
@@ -11,18 +11,11 @@ namespace ContractingPlatform.Api;
 [Route("api/[controller]")]
 public class LeadsController : ControllerBase
 {
-    private readonly ICommandHandler<CreateLeadCommand, LeadDto> _createLeadHandler;
-    private readonly IQueryHandler<GetLeadByIdQuery, LeadDto?> _getLeadByIdHandler;
-    private readonly IQueryHandler<GetLeadsQuery, List<LeadDto>> _getLeadsHandler;
+    private readonly ISender _sender;
 
-    public LeadsController(
-        ICommandHandler<CreateLeadCommand, LeadDto> createLeadHandler,
-        IQueryHandler<GetLeadByIdQuery, LeadDto?> getLeadByIdHandler,
-        IQueryHandler<GetLeadsQuery, List<LeadDto>> getLeadsHandler)
+    public LeadsController(ISender sender)
     {
-        _createLeadHandler = createLeadHandler;
-        _getLeadByIdHandler = getLeadByIdHandler;
-        _getLeadsHandler = getLeadsHandler;
+        _sender = sender;
     }
 
     [HttpPost]
@@ -44,7 +37,7 @@ public class LeadsController : ControllerBase
             PreferredContactMethod = request.PreferredContactMethod,
         };
 
-        var result = await _createLeadHandler.Handle(command, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
 
         return CreatedAtAction(nameof(GetLead), new { id = result.LeadId }, result);
     }
@@ -53,7 +46,7 @@ public class LeadsController : ControllerBase
     public async Task<ActionResult<LeadDto>> GetLead(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetLeadByIdQuery { LeadId = id };
-        var result = await _getLeadByIdHandler.Handle(query, cancellationToken);
+        var result = await _sender.Send(query, cancellationToken);
 
         if (result == null)
         {
@@ -67,7 +60,7 @@ public class LeadsController : ControllerBase
     public async Task<ActionResult<List<LeadDto>>> GetLeads(CancellationToken cancellationToken)
     {
         var query = new GetLeadsQuery();
-        var result = await _getLeadsHandler.Handle(query, cancellationToken);
+        var result = await _sender.Send(query, cancellationToken);
 
         return Ok(result);
     }

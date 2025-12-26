@@ -1,17 +1,17 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Api.Core;
 using ContractingPlatform.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContractingPlatform.Api.Features.TrustBadges;
 
-public class GetTrustBadgesQuery : IQuery<List<TrustBadgeDto>>
+public class GetTrustBadgesQuery : IRequest<List<TrustBadgeDto>>
 {
 }
 
-public class GetTrustBadgesQueryHandler : IQueryHandler<GetTrustBadgesQuery, List<TrustBadgeDto>>
+public class GetTrustBadgesQueryHandler : IRequestHandler<GetTrustBadgesQuery, List<TrustBadgeDto>>
 {
     private readonly IContractingPlatformContext _context;
 

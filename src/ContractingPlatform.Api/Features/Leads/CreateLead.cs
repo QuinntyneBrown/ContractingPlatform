@@ -1,12 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Api.Core;
 using ContractingPlatform.Core;
+using MediatR;
 
 namespace ContractingPlatform.Api.Features.Leads;
 
-public class CreateLeadCommand : ICommand<LeadDto>
+public class CreateLeadCommand : IRequest<LeadDto>
 {
     public string FullName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
@@ -17,7 +17,7 @@ public class CreateLeadCommand : ICommand<LeadDto>
     public string PreferredContactMethod { get; set; } = "Either";
 }
 
-public class CreateLeadCommandHandler : ICommandHandler<CreateLeadCommand, LeadDto>
+public class CreateLeadCommandHandler : IRequestHandler<CreateLeadCommand, LeadDto>
 {
     private readonly IContractingPlatformContext _context;
 

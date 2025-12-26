@@ -1,18 +1,18 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Api.Core;
 using ContractingPlatform.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContractingPlatform.Api.Features.Services;
 
-public class GetServiceBySlugQuery : IQuery<ServiceDto?>
+public class GetServiceBySlugQuery : IRequest<ServiceDto?>
 {
     public string Slug { get; set; } = string.Empty;
 }
 
-public class GetServiceBySlugQueryHandler : IQueryHandler<GetServiceBySlugQuery, ServiceDto?>
+public class GetServiceBySlugQueryHandler : IRequestHandler<GetServiceBySlugQuery, ServiceDto?>
 {
     private readonly IContractingPlatformContext _context;
 

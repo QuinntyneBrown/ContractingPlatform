@@ -1,17 +1,17 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Api.Core;
 using ContractingPlatform.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContractingPlatform.Api.Features.Leads;
 
-public class GetLeadsQuery : IQuery<List<LeadDto>>
+public class GetLeadsQuery : IRequest<List<LeadDto>>
 {
 }
 
-public class GetLeadsQueryHandler : IQueryHandler<GetLeadsQuery, List<LeadDto>>
+public class GetLeadsQueryHandler : IRequestHandler<GetLeadsQuery, List<LeadDto>>
 {
     private readonly IContractingPlatformContext _context;
 

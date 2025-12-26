@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Api.Core;
 using ContractingPlatform.Api.Features.TrustBadges;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContractingPlatform.Api;
@@ -11,18 +11,18 @@ namespace ContractingPlatform.Api;
 [Route("api/[controller]")]
 public class TrustBadgesController : ControllerBase
 {
-    private readonly IQueryHandler<GetTrustBadgesQuery, List<TrustBadgeDto>> _getTrustBadgesHandler;
+    private readonly ISender _sender;
 
-    public TrustBadgesController(IQueryHandler<GetTrustBadgesQuery, List<TrustBadgeDto>> getTrustBadgesHandler)
+    public TrustBadgesController(ISender sender)
     {
-        _getTrustBadgesHandler = getTrustBadgesHandler;
+        _sender = sender;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TrustBadgeDto>>> GetTrustBadges(CancellationToken cancellationToken)
     {
         var query = new GetTrustBadgesQuery();
-        var result = await _getTrustBadgesHandler.Handle(query, cancellationToken);
+        var result = await _sender.Send(query, cancellationToken);
 
         return Ok(result);
     }

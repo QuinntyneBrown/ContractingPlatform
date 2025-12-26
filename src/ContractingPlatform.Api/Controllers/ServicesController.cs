@@ -1,9 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Core;
+using ContractingPlatform.Api.Core;
+using ContractingPlatform.Api.Features.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ContractingPlatform.Api;
 
@@ -11,38 +11,37 @@ namespace ContractingPlatform.Api;
 [Route("api/[controller]")]
 public class ServicesController : ControllerBase
 {
-    private readonly IContractingPlatformContext _context;
+    private readonly IQueryHandler<GetServicesQuery, List<ServiceDto>> _getServicesHandler;
+    private readonly IQueryHandler<GetServiceBySlugQuery, ServiceDto?> _getServiceBySlugHandler;
 
-    public ServicesController(IContractingPlatformContext context)
+    public ServicesController(
+        IQueryHandler<GetServicesQuery, List<ServiceDto>> getServicesHandler,
+        IQueryHandler<GetServiceBySlugQuery, ServiceDto?> getServiceBySlugHandler)
     {
-        _context = context;
+        _getServicesHandler = getServicesHandler;
+        _getServiceBySlugHandler = getServiceBySlugHandler;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ServiceDto>>> GetServices()
+    public async Task<ActionResult<IEnumerable<ServiceDto>>> GetServices(CancellationToken cancellationToken)
     {
-        var services = await _context.Services
-            .Where(s => s.IsActive)
-            .OrderBy(s => s.DisplayOrder)
-            .Select(s => s.ToDto())
-            .ToListAsync();
+        var query = new GetServicesQuery();
+        var result = await _getServicesHandler.Handle(query, cancellationToken);
 
-        return Ok(services);
+        return Ok(result);
     }
 
     [HttpGet("{slug}")]
-    public async Task<ActionResult<ServiceDto>> GetService(string slug)
+    public async Task<ActionResult<ServiceDto>> GetService(string slug, CancellationToken cancellationToken)
     {
-        var service = await _context.Services
-            .Where(s => s.Slug == slug && s.IsActive)
-            .Select(s => s.ToDto())
-            .FirstOrDefaultAsync();
+        var query = new GetServiceBySlugQuery { Slug = slug };
+        var result = await _getServiceBySlugHandler.Handle(query, cancellationToken);
 
-        if (service == null)
+        if (result == null)
         {
             return NotFound();
         }
 
-        return Ok(service);
+        return Ok(result);
     }
 }

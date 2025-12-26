@@ -1,7 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Core;
+using ContractingPlatform.Api.Core;
+using ContractingPlatform.Api.Features.Leads;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContractingPlatform.Api;
@@ -10,39 +11,64 @@ namespace ContractingPlatform.Api;
 [Route("api/[controller]")]
 public class LeadsController : ControllerBase
 {
-    private readonly IContractingPlatformContext _context;
+    private readonly ICommandHandler<CreateLeadCommand, LeadDto> _createLeadHandler;
+    private readonly IQueryHandler<GetLeadByIdQuery, LeadDto?> _getLeadByIdHandler;
+    private readonly IQueryHandler<GetLeadsQuery, List<LeadDto>> _getLeadsHandler;
 
-    public LeadsController(IContractingPlatformContext context)
+    public LeadsController(
+        ICommandHandler<CreateLeadCommand, LeadDto> createLeadHandler,
+        IQueryHandler<GetLeadByIdQuery, LeadDto?> getLeadByIdHandler,
+        IQueryHandler<GetLeadsQuery, List<LeadDto>> getLeadsHandler)
     {
-        _context = context;
+        _createLeadHandler = createLeadHandler;
+        _getLeadByIdHandler = getLeadByIdHandler;
+        _getLeadsHandler = getLeadsHandler;
     }
 
     [HttpPost]
-    public async Task<ActionResult<LeadDto>> CreateLead([FromBody] CreateLeadRequest request)
+    public async Task<ActionResult<LeadDto>> CreateLead([FromBody] CreateLeadRequest request, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var lead = request.ToLead();
+        var command = new CreateLeadCommand
+        {
+            FullName = request.FullName,
+            Email = request.Email,
+            Phone = request.Phone,
+            ServiceType = request.ServiceType,
+            ProjectAddress = request.ProjectAddress,
+            Message = request.Message,
+            PreferredContactMethod = request.PreferredContactMethod,
+        };
 
-        _context.Leads.Add(lead);
-        await _context.SaveChangesAsync();
+        var result = await _createLeadHandler.Handle(command, cancellationToken);
 
-        return CreatedAtAction(nameof(GetLead), new { id = lead.LeadId }, lead.ToDto());
+        return CreatedAtAction(nameof(GetLead), new { id = result.LeadId }, result);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<LeadDto>> GetLead(Guid id)
+    public async Task<ActionResult<LeadDto>> GetLead(Guid id, CancellationToken cancellationToken)
     {
-        var lead = await _context.Leads.FindAsync(id);
+        var query = new GetLeadByIdQuery { LeadId = id };
+        var result = await _getLeadByIdHandler.Handle(query, cancellationToken);
 
-        if (lead == null)
+        if (result == null)
         {
             return NotFound();
         }
 
-        return Ok(lead.ToDto());
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<LeadDto>>> GetLeads(CancellationToken cancellationToken)
+    {
+        var query = new GetLeadsQuery();
+        var result = await _getLeadsHandler.Handle(query, cancellationToken);
+
+        return Ok(result);
     }
 }

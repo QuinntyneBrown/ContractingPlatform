@@ -1,9 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using ContractingPlatform.Core;
+using ContractingPlatform.Api.Core;
+using ContractingPlatform.Api.Features.Statistics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ContractingPlatform.Api;
 
@@ -11,22 +11,19 @@ namespace ContractingPlatform.Api;
 [Route("api/[controller]")]
 public class StatisticsController : ControllerBase
 {
-    private readonly IContractingPlatformContext _context;
+    private readonly IQueryHandler<GetStatisticsQuery, List<StatisticDto>> _getStatisticsHandler;
 
-    public StatisticsController(IContractingPlatformContext context)
+    public StatisticsController(IQueryHandler<GetStatisticsQuery, List<StatisticDto>> getStatisticsHandler)
     {
-        _context = context;
+        _getStatisticsHandler = getStatisticsHandler;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<StatisticDto>>> GetStatistics()
+    public async Task<ActionResult<IEnumerable<StatisticDto>>> GetStatistics(CancellationToken cancellationToken)
     {
-        var statistics = await _context.Statistics
-            .Where(s => s.IsActive)
-            .OrderBy(s => s.DisplayOrder)
-            .Select(s => s.ToDto())
-            .ToListAsync();
+        var query = new GetStatisticsQuery();
+        var result = await _getStatisticsHandler.Handle(query, cancellationToken);
 
-        return Ok(statistics);
+        return Ok(result);
     }
 }

@@ -1,0 +1,22 @@
+<mat-card class="testimonial-card">
+  <mat-card-content class="testimonial-card__content">
+    <mat-icon class="testimonial-card__quote-icon">format_quote</mat-icon>
+    <p class="testimonial-card__quote">{{ quote }}</p>
+    <div class="testimonial-card__rating">
+      <mat-icon
+        *ngFor="let star of stars"
+        class="testimonial-card__star"
+        [class.testimonial-card__star--filled]="star < rating"
+      >
+        {{ star < rating ? 'star' : 'star_border' }}
+      </mat-icon>
+    </div>
+    <div class="testimonial-card__author">
+      <span class="testimonial-card__author-name">&mdash; {{ authorName }}</span>
+      <span class="testimonial-card__author-location" *ngIf="authorLocation">{{
+        authorLocation
+      }}</span>
+    </div>
+    <span class="testimonial-card__service" *ngIf="serviceType">{{ serviceType }}</span>
+  </mat-card-content>
+</mat-card>

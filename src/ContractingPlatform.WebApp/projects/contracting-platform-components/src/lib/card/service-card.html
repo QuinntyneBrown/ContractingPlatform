@@ -1,0 +1,13 @@
+<mat-card class="service-card">
+  <mat-card-content class="service-card__content">
+    <div class="service-card__icon-wrapper">
+      <mat-icon class="service-card__icon">{{ icon }}</mat-icon>
+    </div>
+    <h3 class="service-card__title">{{ title }}</h3>
+    <p class="service-card__description">{{ description }}</p>
+    <button mat-button color="primary" class="service-card__link" (click)="onLinkClick()">
+      {{ linkText }}
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

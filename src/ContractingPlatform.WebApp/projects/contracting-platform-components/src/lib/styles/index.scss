@@ -1,0 +1,5 @@
+// Main styles entry point for ContractingPlatform Components
+@use './tokens' as *;
+
+// Export all tokens
+@forward './tokens';

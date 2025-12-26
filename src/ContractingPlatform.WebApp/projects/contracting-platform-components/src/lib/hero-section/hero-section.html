@@ -1,0 +1,32 @@
+<section
+  class="hero-section"
+  [class.hero-section--compact]="variant === 'compact'"
+  [style.--bg-image]="backgroundImage ? 'url(' + backgroundImage + ')' : 'none'"
+  [style.--overlay-opacity]="overlayOpacity"
+>
+  <div class="hero-section__overlay"></div>
+  <div class="hero-section__content">
+    <h1 class="hero-section__title">{{ title }}</h1>
+    <p class="hero-section__subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+    <nav class="hero-section__breadcrumb" *ngIf="breadcrumb">{{ breadcrumb }}</nav>
+    <div class="hero-section__actions" *ngIf="primaryButtonText || secondaryButtonText">
+      <button
+        mat-flat-button
+        color="primary"
+        class="hero-section__button hero-section__button--primary"
+        *ngIf="primaryButtonText"
+        (click)="onPrimaryClick()"
+      >
+        {{ primaryButtonText }}
+      </button>
+      <button
+        mat-stroked-button
+        class="hero-section__button hero-section__button--secondary"
+        *ngIf="secondaryButtonText"
+        (click)="onSecondaryClick()"
+      >
+        {{ secondaryButtonText }}
+      </button>
+    </div>
+  </div>
+</section>

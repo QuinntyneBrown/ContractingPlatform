@@ -1,0 +1,40 @@
+@use '../styles/tokens' as *;
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-6;
+
+  &__value {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    color: var(--mat-sys-on-surface, #1c1b1f);
+    margin-bottom: $spacing-2;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__label {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: var(--mat-sys-on-surface-variant, #49454f);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &--inverted {
+    .statistic__value {
+      color: var(--mat-sys-on-primary, #ffffff);
+    }
+
+    .statistic__label {
+      color: var(--mat-sys-on-primary, #ffffff);
+      opacity: 0.9;
+    }
+  }
+}

@@ -97,6 +97,24 @@
           "options": {
             "tsConfig": "projects/contracting-platform-components/tsconfig.spec.json"
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "contracting-platform:build",
+            "compodoc": false,
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "contracting-platform:build",
+            "compodoc": false,
+            "outputDir": "storybook-static"
+          }
         }
       }
     }

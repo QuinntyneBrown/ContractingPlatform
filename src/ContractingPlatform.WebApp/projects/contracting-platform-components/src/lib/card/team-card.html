@@ -1,0 +1,13 @@
+<mat-card class="team-card">
+  <mat-card-content class="team-card__content">
+    <div class="team-card__avatar-container">
+      <img [src]="imageUrl" [alt]="name" class="team-card__avatar" *ngIf="imageUrl" />
+      <div class="team-card__avatar-placeholder" *ngIf="!imageUrl">
+        <span>{{ name.charAt(0) }}</span>
+      </div>
+    </div>
+    <h3 class="team-card__name">{{ name }}</h3>
+    <p class="team-card__role">{{ role }}</p>
+    <p class="team-card__description" *ngIf="description">{{ description }}</p>
+  </mat-card-content>
+</mat-card>

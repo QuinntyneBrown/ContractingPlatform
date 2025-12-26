@@ -1,0 +1,54 @@
+@use '../styles/tokens' as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  border-radius: $radius-md;
+  transition: all $transition-fast;
+  cursor: pointer;
+
+  &--small {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    min-height: 36px;
+  }
+
+  &--medium {
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-size-base;
+    min-height: 48px;
+  }
+
+  &--large {
+    padding: $spacing-4 $spacing-8;
+    font-size: $font-size-lg;
+    min-height: 56px;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &--left {
+      margin-right: $spacing-2;
+    }
+
+    &--right {
+      margin-left: $spacing-2;
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

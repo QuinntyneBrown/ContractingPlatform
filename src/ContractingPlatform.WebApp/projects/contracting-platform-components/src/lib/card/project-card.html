@@ -1,0 +1,22 @@
+<mat-card class="project-card" (click)="onCardClick()">
+  <div class="project-card__image-container">
+    <img
+      [src]="imageUrl"
+      [alt]="imageAlt || title"
+      class="project-card__image"
+      *ngIf="imageUrl"
+    />
+    <div class="project-card__image-placeholder" *ngIf="!imageUrl">
+      <span>No Image</span>
+    </div>
+  </div>
+  <mat-card-content class="project-card__content">
+    <h3 class="project-card__title">{{ title }}</h3>
+    <div class="project-card__meta">
+      <mat-chip-set class="project-card__category-chip">
+        <mat-chip>{{ category }}</mat-chip>
+      </mat-chip-set>
+      <span class="project-card__location">{{ location }}</span>
+    </div>
+  </mat-card-content>
+</mat-card>

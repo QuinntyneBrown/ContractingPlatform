@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "types": ["node"]
+  },
+  "exclude": ["../node_modules/**/*"],
+  "include": [
+    "../projects/contracting-platform-components/src/**/*.stories.ts",
+    "../projects/contracting-platform-components/src/**/*.ts",
+    "./*.ts"
+  ]
+}

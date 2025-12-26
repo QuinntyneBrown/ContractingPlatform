@@ -1,0 +1,13 @@
+<div class="star-rating" [class]="'star-rating--' + size">
+  <div class="star-rating__stars">
+    <mat-icon
+      *ngFor="let star of stars"
+      class="star-rating__star"
+      [class.star-rating__star--filled]="star < rating"
+      [class.star-rating__star--half]="star < rating && star >= rating - 0.5 && rating % 1 !== 0"
+    >
+      {{ star < rating ? 'star' : 'star_border' }}
+    </mat-icon>
+  </div>
+  <span class="star-rating__value" *ngIf="showValue">{{ rating }} / {{ maxRating }}</span>
+</div>
